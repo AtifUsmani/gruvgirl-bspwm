@@ -1,0 +1,6 @@
+2021/04/13-18:08:19.787 3 Reusing MANIFEST /home/atifu/.config/google-chrome/Default/Local Storage/leveldb/MANIFEST-000001
+2021/04/13-18:08:19.788 3 Recovering log #3
+2021/04/13-18:08:19.789 3 Reusing old log /home/atifu/.config/google-chrome/Default/Local Storage/leveldb/000003.log 
+2021/04/13-18:12:09.898 3 Level-0 table #5: started
+2021/04/13-18:12:09.906 3 Level-0 table #5: 17964 bytes OK
+2021/04/13-18:12:09.909 3 Delete type=0 #3

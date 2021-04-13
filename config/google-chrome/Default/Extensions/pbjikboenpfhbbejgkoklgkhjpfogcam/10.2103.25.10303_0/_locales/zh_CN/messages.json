@@ -1,0 +1,53 @@
+{
+   "appDesc": {
+      "message": "亚马逊官方浏览器扩展, 现在安装即表示您同意使用条款 amazon.cn/aa/TOU"
+   },
+   "appName": {
+      "message": "适用于Chrome Amazon Assistant"
+   },
+   "appTitle": {
+      "message": "Amazon Assistant"
+   },
+   "changeMarketplaceString": {
+      "message": "请尝试选择附近的位置以重新加载延期。"
+   },
+   "emailBody1": {
+      "message": "帮助我提高！请告诉我发生了什么，所以我可以修复它。"
+   },
+   "emailBody2": {
+      "message": "发生了什么事？"
+   },
+   "emailBody3": {
+      "message": "任何你能告诉我你的电脑，浏览器或网络连接？"
+   },
+   "emailBody4": {
+      "message": "参考ID："
+   },
+   "emailSubject": {
+      "message": "反馈 Amazon Assistant"
+   },
+   "feedbackMessage": {
+      "message": "发送亚马逊助手反馈"
+   },
+   "feedbackString": {
+      "message": "反馈"
+   },
+   "improveString": {
+      "message": "你可以让我知道这是怎么回事，所以我可以改进？"
+   },
+   "noLuckString": {
+      "message": "仍然没有运气？"
+   },
+   "resetAgainString": {
+      "message": "尝试关闭和重新设置"
+   },
+   "resetString": {
+      "message": "关闭和复位"
+   },
+   "sorryString1": {
+      "message": "对不起这个，"
+   },
+   "sorryString2": {
+      "message": "我无法加载。"
+   }
+}

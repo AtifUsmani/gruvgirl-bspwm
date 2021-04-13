@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<!--
+    Panel context for the IE Extension
+-->
+<html>
+<head>
+    <title>Amazon Browser Apps</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <!--Panic screen style-->
+    <!--TODO: Move this Style to a file once SDK supports-->
+    <style>
+        html, body, iframe {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+        body {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.83);
+            font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
+        }
+        #retryContainer {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        div#retrySection > div {
+            display: none;
+        }
+        #retrySection {
+            padding: 220px 40px 0 40px;
+            height: calc(100% - 220px - 46px);
+        }
+        div#retryButton, div#retryAgainButton {
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: underline;
+            color: #0066C0;
+        }
+        div#emailData {
+            display: none;
+        }
+        a, a:visited {
+            font-size: 13px;
+            color: #0066C0;
+        }
+        p {
+            font-size: 15px;
+            color: #111;
+        }
+        p:first-of-type {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+        p:last-of-type {
+            margin-top: 0;
+        }
+        p#improveText {
+            font-size: 13px;
+            margin-top: 35px;
+        }
+        button {
+            border-radius: 3px;
+            border-color: #adb1b8 #a2a6ac #8d9096;
+            border-style: solid;
+            border-width: 1px;
+            cursor: pointer;
+            text-align: center;
+            vertical-align: middle;
+            padding: 8px 12px;
+            background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+            outline: none;
+        }
+        div#spinnerSection {
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19 */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* Safari and Chrome */
+            display: flex;             /* Opera 12.1, Firefox 20+ Chrome 10+ */
+            justify-content: center;
+            -webkit-justify-content: center; /* Safari Chrome */
+            align-items: center;
+            -webkit-align-items: center;
+            height: 100%;
+            margin-top: 92%;
+        }
+        #footer {
+            height: 46px;
+            color: #999;
+            font-size: 11px;
+            line-height: 16px;
+        }
+        #footer span {
+            display: block;
+        }
+
+    </style>
+
+    <!--Local Storage APIs-->
+    <!--TODO: Move this script to a file once SDK supports -->
+    <script>
+        /*
+         * Catch all unhandled exceptions for the panel.
+         * This prevents script errors from alerting the user.
+         */
+        window.onerror = function (e) {
+          if(window.console) {
+            // If we can, log the issue to the console to prevent it from being invisible.
+            console.log("An unhandled extension exception was caught: ", e);
+          }
+
+          // Prevent the error from propogating to the default handler
+          // This prevents the error popup from ocurring in IE
+          return true;
+        };
+        /**
+         * Get value from local storage.
+         * @param key
+         * @return value
+         */
+        function getFromLocalStorage(key) {
+            var value = "";
+            try {
+                if (window.localStorage && key) {
+                    value = window.localStorage.getItem(key);
+                }
+            }
+            catch (error) {
+                // log the error and swallow it.
+                console.error("Failed to get '" + key + "' from localStorage: " + error.toString());
+            }
+            return value;
+        }
+
+        /**
+         * Set value to local storage.
+         * @param key
+         * @param value
+         */
+        function setToLocalStorage(key, value) {
+            try {
+                if (window.localStorage) {
+                    if (key) {
+                        window.localStorage.setItem(key, value);
+                    }
+                    // return true if localStorage function normally
+                    return true;
+                }
+            }
+            catch (error) {
+                // log the error and swallow it.
+                console.error("Failed to set '" + key + "':'" + value + "' to localStorage: " + error.toString());
+            }
+            // return false so caller knows the localStorage failed.
+            return false;
+        }
+
+        /**
+         * Remove value from local storage.
+         * @param key
+         */
+        function removeFromLocalStorage(key) {
+            try {
+                if (window.localStorage && key) {
+                    value = window.localStorage.removeItem(key);
+                }
+            }
+            catch (error) {
+                // log the error and swallow it.
+                console.error("Failed to remove '" + key + "' from localStorage: " + error.toString());
+            }
+        }
+
+    </script>
+
+    <!--Localization library for Panic screen text localization-->
+    <!--TODO: Move this script to a file once  SDK supports-->
+    <script>
+        /*! @source http://purl.eligrey.com/github/l10n.js/blob/master/l10n.js*/
+        !function(){"use strict";var t,e,n="undefined",r="string",i=self.navigator,o=String,a=Object.prototype.hasOwnProperty,l={},c={},u=!1,f=!0,s=/^\s*application\/(?:vnd\.oftn\.|x-)?l10n\+json\s*(?:$|;)/i,p="locale",h="defaultLocale",g="toLocaleString",y="toLowerCase",v=Array.prototype.indexOf||function(t){for(var e=this.length,n=0;e>n;n++)if(n in this&&this[n]===t)return n;return-1},d=function(e){var n=new t,r={};n.open("GET",e,u),n.send(null);try{r=JSON.parse(n.responseText)}catch(i){setTimeout(function(){var t=new Error("Unable to load localization data: "+e);throw t.name="Localization Error",t},0)}return r},w=o[g]=function(t){if(arguments.length>0&&"number"!=typeof t)if(typeof t===r)w(d(t));else if(t===u)c={};else{var e,n,i;for(e in t)if(a.call(t,e)){if(n=t[e],e=e[y](),e in c&&n!==u||(c[e]={}),n===u)continue;if(typeof n===r){if(0!==o[p][y]().indexOf(e)){e in l||(l[e]=[]),l[e].push(n);continue}n=d(n)}for(i in n)a.call(n,i)&&(c[e][i]=n[i])}}return Function.prototype[g].apply(o,arguments)},b=function(t){for(var e,n=l[t],r=0,i=n.length;i>r;r++)e={},e[t]=d(n[r]),w(e);delete l[t]},L=o.prototype[g]=function(){var t,n=e,r=o[n?h:p],i=r[y]().split("-"),a=i.length,s=this.valueOf();e=u;do if(t=i.slice(0,a).join("-"),t in l&&b(t),t in c&&s in c[t])return c[t][s];while(a--);return!n&&o[h]?(e=f,L.call(s)):s};if(typeof XMLHttpRequest===n&&typeof ActiveXObject!==n){var m=ActiveXObject;t=function(){try{return new m("Msxml2.XMLHTTP.6.0")}catch(t){}try{return new m("Msxml2.XMLHTTP.3.0")}catch(e){}try{return new m("Msxml2.XMLHTTP")}catch(n){}throw new Error("XMLHttpRequest not supported by this browser.")}}else t=XMLHttpRequest;if(o[h]=o[h]||"",o[p]=i&&(i.language||i.userLanguage)||"",typeof document!==n)for(var T,M=document.getElementsByTagName("link"),O=M.length;O--;){var X=M[O],x=(X.getAttribute("rel")||"")[y]().split(/\s+/);s.test(X.type)&&(-1!==v.call(x,"localizations")?w(X.getAttribute("href")):-1!==v.call(x,"localization")&&(T={},T[(X.getAttribute("hreflang")||"")[y]()]=X.getAttribute("href"),w(T)))}}();
+    </script>
+
+    <!--Passive Localized Panic screen text-->
+    <!--TODO: Move this script to a file once SDK supports-->
+    <script>
+
+        /**
+         * These pre-localized strings are used by localization library l10n.js
+         */
+        var translations = {
+            "en-US": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Sorry about this",
+                "%sorryString2": "I'm having trouble loading.",
+                "%resetString": "Close and reset",
+                "%noLuckString": "Still no luck?",
+                "%improveString": "Could you let me know what's going on so I can improve?",
+                "%resetAgainString": "Try to close and reset again",
+                "%feedbackString": "Feedback",
+                "%emailSubject": "Amazon Assistant Feedback",
+                "%emailBody1": "Help me improve! Please tell me what happened so I can fix it.",
+                "%emailBody2": "What happened?",
+                "%emailBody3": "Anything else you can tell me about your computer, browser or network connection?",
+                "%emailBody4": "Reference ID:"
+            },
+            "en-GB": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Sorry about this",
+                "%sorryString2": "I'm having trouble loading.",
+                "%resetString": "Close and reset",
+                "%noLuckString": "Still no luck?",
+                "%improveString": "Could you let me know what's going on so I can improve?",
+                "%resetAgainString": "Try to close and reset again",
+                "%feedbackString": "Feedback",
+                "%emailSubject": "Amazon Assistant Feedback",
+                "%emailBody1": "Help me improve! Please tell me what happened so I can fix it.",
+                "%emailBody2": "What happened?",
+                "%emailBody3": "Anything else you can tell me about your computer, browser or network connection?",
+                "%emailBody4": "Reference ID:"
+            },
+            "es-ES": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Lo siento por esto",
+                "%sorryString2": "estoy teniendo problemas de carga.",
+                "%resetString": "Cierre y reinicio",
+                "%noLuckString": "Todavía no hay suerte ?",
+                "%improveString": "¿Podrías hacerme saber lo que está pasando , así que puede mejorar?",
+                "%resetAgainString": "Trate de cerrar y reiniciar de nuevo",
+                "%feedbackString": "realimentación",
+                "%emailSubject": "Votación para Amazon Asistente",
+                "%emailBody1": "Ayúdame a mejorar! Por favor, dime lo que pasó para que pueda arreglarlo.",
+                "%emailBody2": "¿Que pasó?",
+                "%emailBody3": "Cualquier otra cosa que me puede decir acerca de su ordenador, el navegador o conexión de red?",
+                "%emailBody4": "ID de referencia:"
+            },
+            "fr-FR": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Désolé à ce sujet,",
+                "%sorryString2": "je vais avoir du mal chargement.",
+                "%resetString": "Fermer et réinitialisation",
+                "%noLuckString": "Toujours pas de chance ?",
+                "%improveString": "Pourriez- vous me faire savoir ce qui se passe si je peux améliorer ?",
+                "%resetAgainString": "Essayez de fermer et réinitialiser à nouveau",
+                "%feedbackString": "retour d'information",
+                "%emailSubject": "Feedback pour Amazon Assistant",
+                "%emailBody1": "Aidez-moi à améliorer! S'il vous plaît me dire ce qui est arrivé, donc je peux le réparer.",
+                "%emailBody2": "Ce qui s'est passé?",
+                "%emailBody3": "Tout ce que vous pouvez me dire sur votre ordinateur, navigateur ou une connexion réseau?",
+                "%emailBody4": "ID de référence:"
+            },
+            "de-DE": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Tut mir leid,",
+                "%sorryString2": "ich habe Prob leme beim Laden.",
+                "%resetString": "Schließen und Rücksetzen",
+                "%noLuckString": "Noch kein Glück ?",
+                "%improveString": "Könnten Sie lassen Sie mich wissen , was auf so dass ich verbessern kann gehen ?",
+                "%resetAgainString": "Versuchen Sie, zu schließen und wieder zurückgesetzt",
+                "%feedbackString": "Feedback",
+                "%emailSubject": "Feedback zur Amazon Assistant",
+                "%emailBody1": "Hilf mir, zu verbessern! Bitte sagen Sie mir, was passiert ist, so kann ich es zu beheben.",
+                "%emailBody2": "Was ist passiert?",
+                "%emailBody3": "Alles andere können Sie mir über Ihren Computer, Browser oder Netzwerkverbindung zu erzählen?",
+                "%emailBody4": "Referenz-ID:"
+            },
+            "it-IT": {
+                "%appDesc": "This is an official Amazon extension for Internet Explorer",
+                "%appName": "Amazon Assistant for Internet Explorer",
+                "%appTitle": "Amazon Assistant",
+                "%sorryString1": "Mi dispiace per questo,",
+                "%sorryString2": "sto avendo problemi di carico.",
+                "%resetString": "Chiudere e ripristino",
+                "%noLuckString": "Ancora niente ?",
+                "%improveString": "Potreste farmi sapere che cosa sta succedendo , così posso migliorare?",
+                "%resetAgainString": "Prova a chiudere e ripristinare di nuovo",
+                "%feedbackString": "retroazione",
+                "%emailSubject": "Commenti per Amazon Assistant",
+                "%emailBody1": "Aiutarmi a migliorare! Ti prego, dimmi che cosa è successo in modo da poter risolvere il problema.",
+                "%emailBody2": "Che è successo?",
+                "%emailBody3": "Qualsiasi altra cosa mi puoi dire sul tuo computer, del browser o di rete?",
+                "%emailBody4": "ID di riferimento:"
+            },
+            "zh-CN": {
+                "%appDesc": "亚马逊官方发布的Firefox扩展应用",
+                "%appName": "亚马逊助手",
+                "%appTitle": "亚马逊购物助手",
+                "%sorryString1": "对不起",
+                "%sorryString2": "我无法加载。",
+                "%resetString": "关闭并重置",
+                "%noLuckString": "仍然不走运？",
+                "%improveString": "请把问题反馈给我们，我们会改进？",
+                "%resetAgainString": "再次关闭并重置",
+                "%feedbackString": "反馈",
+                "%emailSubject": "亚马逊助手反馈",
+                "%emailBody1": "请帮我改进！请告诉我发生了什么问题，我来修复它",
+                "%emailBody2": "发生了什么问题？",
+                "%emailBody3": "关于您的电脑，浏览器或网络连接，您还能提供什么信息",
+                "%emailBody4": "参考ID："
+            },
+            "ja-JP": {
+                "%appDesc": "InternetExplorer用Amazon公式ブラウザアプリ",
+                "%appName": "Amazonアシスタント for Internet Explorer",
+                "%appTitle": "Amazonアシスタント",
+                "%sorryString1": "このことについて申し訳ありませんが、,",
+                "%sorryString2": "私はトラブルの負荷を抱えています。",
+                "%resetString": "閉じるとリセット",
+                "%noLuckString": "まだ運？",
+                "%improveString": "あなたは私ので、私は改善することができます何が起こっているのか知らせてもらえますか？",
+                "%resetAgainString": "閉じて、再びリセットしてみてください",
+                "%feedbackString": "フィードバック",
+                "%emailSubject": "アマゾンアシスタントのフィードバック",
+                "%emailBody1": "私は改善にご協力ください！私はそれを修正することができますので、何が起こったのかを教えてください。",
+                "%emailBody2": "何が起こった？",
+                "%emailBody3": "それ以外のものは、お使いのコンピュータ、ブラウザまたはネットワーク接続について教えてできますか？",
+                "%emailBody4": "参照ID："
+            }
+        };
+
+        String.toLocaleString(translations);
+
+        /**
+         * Localization wrapper over the API: toLocaleString
+         * Usage: localizedString1 = localize(stringID)
+         * Default language: "en-US"
+         * 
+         * @param stringID: string
+         * @returns string (translation)
+         */
+        var localize = function (stringID) {
+            var defaultLang = "en-US";
+            // Get the localized string.
+            // (will be stringID if language code unknown)
+            var translationOrID = stringID.toLocaleString();
+
+            // This is a check to return the en-US 
+            // localized string as a default if the real
+            // language code is unknown.
+            // https://tt.amazon.com/0122487816
+            return (translationOrID === stringID) ? translations[defaultLang][translationOrID] : translationOrID;
+        };
+    </script>
+</head>
+<!--
+
+ Step1: Creates an iframe with default dimensions.
+ Step2: Now, Panel after receiving from Extension assigns the Gateway URL to the UBPv2MainPanelFrame source.
+
+-->
+
+<body style="width: 320px; height: 605px; margin: 0px; padding: 0px; overflow: hidden; background-color: rgba(255, 255, 255, 0.83)">
+<script>
+
+    /**
+     * Wrapper of the messages received from Panel.
+     */
+    function IEPanelMessageWrapper(message) {
+        this.IEPanelWrappedMessage = message;
+    }
+
+    var urlKey = "UBPv2GatewayURL";
+
+    /**
+     * Extension logging ID that can be sent as part
+     * of the feedback email by the user. This will help
+     * debug any issues in the logs.
+     */
+    var extensionLogId = "";
+
+    /**
+     * No network page URL
+     * No Notwork page has been added as a resource in aaResource.dll file
+     * Resource id of the page is 105
+     * It can be accessed using resource protocol: 'res'
+     */
+    var offlineGatewayURL = "res://aaResources.dll/105";
+
+    /**
+     * Default value is false i.e. if online status is not communicated by Extension,
+     * Extension will show no network page after retryScreenTimeout. We are expecting here that if Extension
+     * is online, response of network request from the end point should be fast
+     */
+    var isOnline = true;
+
+    var errorCodePrefix = "ext";
+    var gateway_iframe_load_error   = "101"; // gateway iframe load error
+    var gateway_iframe_blank_error  = "102"; // gateway iframe src is blank after retry timeout
+    var gateway_page_timeout_error  = "103"; // after page wait timeout
+    var gateway_local_storage_error = "104"; // local storage fail
+    var errorCode = "";
+
+    /**
+     * Receive message from the extension aimed towards the panel. At this point,
+     * we are only getting the messages which sends the extension logId and is sent
+     * when the panel is created.
+     * @param msgEvent
+     */
+    function receiveMessage(msgEvent) {
+        var message = msgEvent && msgEvent.data && msgEvent.data.IEExtensionWrappedMessage;
+        if(message && message.source !== "Panel" && message.specialMessage && message.payload && message.payload.data) {
+            if(typeof(message.payload.data.extensionId) != "undefined") extensionLogId  = message.payload.data.extensionId;
+            if(typeof(message.payload.data.isOnline) != "undefined") isOnline = message.payload.data.isOnline;
+        }
+
+        /**
+         * Gateway or other UI processes sends "reloadExtension" message to restart AA. Here we send that message to extension
+         * which actually restarts all processes and closes panel.
+         */
+        if(message && message.payload && message.payload.payload && message.payload.payload.header && message.payload.payload.header.namespace === "Platform" && message.payload.payload.header.name === "reloadExtension") {
+            sendMessage({name: "reloadExtension" });
+        }
+
+        /**
+         * Get the gateway url and store it in local storage
+         * which can be used by subsequent gateway open to get the gateway url
+         */
+        if(message && message.panelResponseData && message.panelResponseData.messageData && message.panelResponseData.messageData.gatewayURL) {
+            setToLocalStorage(urlKey, message.panelResponseData.messageData.gatewayURL);
+        }
+    }
+
+    /* This listener should be attached asap so as not to miss any messaged aimed for the panel */
+    window.addEventListener("message", receiveMessage);
+</script>
+
+<div id="spinnerSection">
+    <!--TODO: Localize the image URL: https://bit-jira.aka.amazon.com/browse/AA-1442 -->
+    <img src="https://images-na.ssl-images-amazon.com/images/G/01/associates/BIT/aa/gateway/Loading-small._CB314562880_.gif"/>
+</div>
+
+<!--
+    Retry sections.
+    Initial retry section is shown for the first time. If the customer has already seen
+    this section, subsequent retry section is shown.
+-->
+<div id="retryContainer">
+    <div id="retrySection">
+        <!--TODO: Localize the icon image-->
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/associates/BIT/aa/gateway/icon._V526357653_.png"/>
+
+        <div id="initialRetry">
+            <p data-l10n-id="sorryString1">Sorry about this,</p>
+            <p data-l10n-id="sorryString2">I'm having trouble loading...</p>
+            <div id="retryButton" class="reloadExt" data-l10n-id="resetString">Close and reset</div>
+        </div>
+
+        <div id="subsequentRetry">
+            <p id="noLuckText" data-l10n-id="noLuckString">Still no luck?</p>
+            <div id="retryAgainButton" class="reloadExt" data-l10n-id="resetAgainString">Try to close and reset again</div>
+            <p id="improveText" data-l10n-id="improveString">Could you let me know what's going on so I can improve?</p>
+            <button id="feedbackButton" data-l10n-id="feedbackString">Feedback</button>
+        </div>
+    </div>
+
+    <!-- Show error code and log id here -->
+    <div id="footer">
+        <span id="errorCode"></span>
+        <span id="logId"></span>
+    </div>
+</div>
+
+<div id="emailData">
+    <p id="emailSubject" data-l10n-id="emailSubject">Amazon Assistant Feedback</p>
+    <p id="emailBody1" data-l10n-id="emailBody1">Help me improve! Please tell me what happened so I can fix it.</p>
+    <p id="emailBody2" data-l10n-id="emailBody2">What happened?</p>
+    <p id="emailBody3" data-l10n-id="emailBody3">Anything else you can tell me about your computer, browser or network connection?</p>
+    <p id="emailBody4" data-l10n-id="emailBody4">Reference ID:</p>
+</div>
+<iframe id="UBPv2MainPanelFrame" application="yes" src="" style="width: 320px; height: 605px; margin-left: 2px; margin-top: 1px; padding: 0px; border: 0px; overflow: hidden;">
+</iframe>
+<script>
+    // This code localizes the text in the DOM which are having
+    // 'data-l10n-id' attribute in their DOM element
+    // This code travels through each elements of the Panel document
+    // get the localisation attribute value and map the value to the corresponding translation string
+    // And replace the current/empty string with the translated string
+    var arrayOfElements = document.getElementsByTagName("*");
+
+    for (var index=0, max=arrayOfElements.length; index < max; index++) {
+        // Get the localisation attribute value
+        var stringId = arrayOfElements[index].getAttribute("data-l10n-id");
+        if(stringId) {
+
+            // Replace the current/empty string with the translated string
+            arrayOfElements[index].innerHTML = localize("%" + stringId);
+        }
+    }
+</script>
+<script>
+    /* Todo: Move this script to a file */
+    var blankUrl = "res://aaResources.dll";
+    var gatewayIframeId = "UBPv2MainPanelFrame";
+    var spinnerDivId = "spinnerSection";
+    var retryScreenShownStorageKey = "ubpv2.retry.screen.shown";
+    var retryScreenTimeout = 10000;         // 10 seconds
+    var retryScreen; // retry timer
+    var pageWaitSetTimeoutList = [];
+    var retryScreenTimeoutList = [];
+    /**
+     * Maximum timeout to wait for a page to be shown in the panel (either gateway or retry) before
+     * retry screen can be shown. This will take charge if gateway stuck loading hence cannot show
+     * panic screen.
+     */
+    var pageWaitTimeout = 15000;
+    var pageWait; // the timer
+    var gatewayFrame = document.getElementById(gatewayIframeId);
+
+    var spinnerDiv = document.getElementById(spinnerDivId);
+
+    /**
+     * It is an utility to clear the timeout of a list of setTimeOuts
+     */
+    function clearTimeoutOfList(timeoutList) {
+        for(var index = 0; index < timeoutList.length; index++) {
+            window.clearTimeout(timeoutList[index])
+        }
+    }
+
+    /**
+     * Add onload event handler which hides the spinner which is shown by default
+     * Also clear the timeout.
+     */
+    gatewayFrame.onload = function() {
+
+        // Only remove spinner and timeout when iframe src is set to a valie URL
+        if(gatewayFrame.src && gatewayFrame.src.indexOf(blankUrl) <= -1 ) {
+            spinnerDiv && (spinnerDiv.style.display = 'none');
+
+            // If retryScree and pageWait time get called multiple times
+            // clear all the timeout because UBPv2MainiFrame is set and has started
+            // loading already
+            clearTimeoutOfList(retryScreenTimeoutList);
+            clearTimeoutOfList(pageWaitSetTimeoutList);
+
+            setToLocalStorage(retryScreenShownStorageKey, null);
+
+            // Ensure the retry section is not displayed
+            document.getElementById("retryContainer").style.display = "none";
+        }
+        if(!isOnline && gatewayFrame.src != offlineGatewayURL) {
+            gatewayFrame.src = offlineGatewayURL;
+        }
+    };
+
+    // Same with Chrome, set onerror to loadRetryScreen
+    gatewayFrame.onerror = loadRetryScreen;
+
+    /**
+     * Load the panic screen
+     * @param code - The error code passed in
+     */
+    function loadRetryScreen(code) {
+        // if no errorCode passed in, or passed in code is not 102 and 103, we mark it to 101
+        if (!code || (code !== gateway_iframe_blank_error && code !== gateway_page_timeout_error)) {
+            code = gateway_iframe_load_error;
+        }
+
+        var retryScreenShown = getFromLocalStorage(retryScreenShownStorageKey);
+
+        if (retryScreenShown !== "true") {
+            document.getElementById("initialRetry").style.display = "block";
+        } else {
+            document.getElementById("initialRetry").style.display = "none";
+            document.getElementById("subsequentRetry").style.display = "block";
+        }
+        // set the extension log id
+        if (document.getElementById("logId")) {
+            document.getElementById("logId").innerHTML = extensionLogId;
+        }
+
+        // Ensure we hide the spinner
+        spinnerDiv && (spinnerDiv.style.display = 'none');
+
+        // Show the retry section
+        document.getElementById("retryContainer").style.display = "block";
+
+        // set the local storage to know next time we have already shown retry screen once.
+        retryScreenShown = "true";
+        if (!setToLocalStorage(retryScreenShownStorageKey, retryScreenShown)) {
+            code = gateway_local_storage_error;
+        }
+        // set error code
+        if (document.getElementById("errorCode")) {
+            document.getElementById("errorCode").innerHTML = "Error code: " + errorCodePrefix + code;
+        }
+    }
+
+    function retryScreenCall() {
+        retryScreen = window.setTimeout(function() {
+
+            /**
+             * If Extension is online, show panic page after retry timeout otherwise show no network page
+             */
+            if(isOnline) {
+                /**
+                 * Do not open panic page when extension is online and gateway iframe has already started loading gateway url.
+                 */
+                if(gatewayFrame.src && gatewayFrame.src.indexOf(blankUrl) > -1) {
+                    loadRetryScreen(gateway_iframe_blank_error);
+                }
+            } else {
+                //if Extension is offline, show no internet connection page
+                if(gatewayFrame) {
+                    spinnerDiv && (spinnerDiv.style.display = 'none');
+                    gatewayFrame.src = offlineGatewayURL;
+                }
+            }
+
+        }, retryScreenTimeout);
+        retryScreenTimeoutList.push(retryScreen);
+    }
+
+
+    function pageWaitCall() {
+        /**
+         * Handle the gateway timeout.
+         */
+        pageWait = window.setTimeout(function() {
+            if (gatewayFrame && gatewayFrame.src && gatewayFrame.src.indexOf(blankUrl) <= -1 && gatewayFrame.src !== offlineGatewayURL) {
+                /**
+                 * Gateway URL has already been set to iframe src. But for some reasons (mostly network), gateway
+                 * is stuck in loading and might be timeout, so the gateway side panic screen related JS might not
+                 * be loaded either. In this case we need to take charge and show the panic screen. Otherwise,
+                 * customer will see an infinite loading spin.
+                 *
+                 * @TODO
+                 * But this cannot resolve all infinite loading issues. For example, gateway URL
+                 * https://horizonte.browserapps.amazon.com has been set to iframe's src and it's loaded successfully,
+                 * but the subsequent UBPClient.min.js or the manifest.js failed to be loaded (I saw timeout with
+                 * slow network), which cause the gateway side ReloadHelper doesn't startup. But since we have cleared
+                 * the pageWaitTimeout on iframe load, no panic screen will be shown from either extension or the
+                 * gateway side, so customer will see an infinite spin.  We should fix this issue either from gateway
+                 * side by removing UBPClient dependency, or by sending a message to extension to clear the timeout.
+                 */
+                loadRetryScreen(gateway_page_timeout_error);
+            }
+        }, pageWaitTimeout);
+        pageWaitSetTimeoutList.push(pageWait);
+    }
+
+    /* Send message back to extension */
+    function sendMessage(message) {
+        var msg = new IEPanelMessageWrapper({source: "Panel", payload:{ namespace: "Platform", name: message.name, data: message.data } , specialMessage: true })
+        parent.IEExtension.window.postMessage(msg, "*");
+    }
+
+    // Set on click events for reload links
+    document.getElementById("initialRetry").addEventListener("click", function () {
+        sendMessage({name: "reloadExtension" });
+        parent.moveOnBlur();
+    });
+
+    document.getElementById("subsequentRetry").addEventListener("click", function () {
+        sendMessage({name: "reloadExtension" });
+        parent.moveOnBlur();
+    });
+
+    // Feedback Email
+    var newLineEscapeSeq = "%0D%0A";
+    var emailId = "assistantfeedback@amazon.com";
+    var emailSubject = document.getElementById("emailSubject").textContent;
+    var emailBody1 = document.getElementById("emailBody1").textContent;
+    var emailBody2 = document.getElementById("emailBody2").textContent;
+    var emailBody3 = document.getElementById("emailBody3").textContent;
+    var emailBody4 = document.getElementById("emailBody4").textContent;
+
+    /**
+     * Feedback button should open a mailto link using default
+     * mailing client on user's machine.
+     */
+    document.getElementById("feedbackButton").addEventListener("click", function () {
+        /**
+         * Create email subject and body with the mailto link.
+         */
+        var emailSubject = document.getElementById("emailSubject").textContent;
+        var emailBody1 = document.getElementById("emailBody1").textContent;
+        var emailBody2 = document.getElementById("emailBody2").textContent;
+        var emailBody3 = document.getElementById("emailBody3").textContent;
+        var emailBody4 = document.getElementById("emailBody4").textContent;
+
+        var emailBody = emailBody1 + newLineEscapeSeq+ emailBody2 +
+                newLineEscapeSeq + newLineEscapeSeq + emailBody3 +
+                newLineEscapeSeq + newLineEscapeSeq +
+                emailBody4 + extensionLogId;
+        var mailUrl = "mailto:" + emailId + "?subject=" + emailSubject + "&body=" + emailBody;
+        sendMessage({name: "openMewTab", data: mailUrl});
+    });
+
+</script>
+
+<!--
+    103 is the resource id for require js script inside aaResources DLL
+-->
+<script type="text/javascript" src="res://aaResources.dll/103"></script>
+
+<!--
+    105 is the resource id for Panel.built.min.js inside aaResources DLL
+-->
+<script type="text/javascript" src="res://aaResources.dll/105"></script>
+
+</body>
+</html>

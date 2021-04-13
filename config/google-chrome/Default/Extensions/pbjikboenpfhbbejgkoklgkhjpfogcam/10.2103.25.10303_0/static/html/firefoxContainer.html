@@ -1,0 +1,50 @@
+<!--
+    firefoxContainer.html acts as a trusted page and loads the remote
+    processes since Firefox 50.
+
+    Firefox 50 and later browsers have an unstable implementation of PageWorkers
+    that accept content scripts. Trusted page eliminates the need of such a content
+    script.
+    See:
+    https://developer.mozilla.org/en-US/Add-ons/SDK/High-Level_APIs/page-worker#Scripting_trusted_page_content
+-->
+
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+</head>
+<body>
+<iframe id="container"></iframe>
+<script type="text/javascript">
+    /**
+     * Returns the value of the query parameter keyed by key in the
+     * location string location.
+     *
+     * @param name by which the query parameter is keyed.
+     * @param url is the location of the page.
+     * @returns query parameter value
+     */
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = document.defaultView.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Used by the PortDriver to set up the listeners appropriately.
+    document.defaultView.isWrappedInFirefoxContainer = true;
+
+    document.getElementById("container").src = getParameterByName("processUrl");
+</script>
+<script type="text/javascript" src="../PortDriver.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+    aaLoader is used in IE Extension. Both the extension and panel iframes are loaded from
+    aaLoader. aaLoader is loaded from HTML App (HTA). HTML App can directly load the extension
+    and panel iframe but IE content equals Edge ignores the HTA tags of the HTML App.
+    HTA tags used to control the lot of property like Scroll bar, button etc. of HTML App.
+    To fix this problem, HTML App first loads HTA tags with the attributes and then load
+    the aaLoader on window.location
+-->
+<html>
+<head>
+    <!--DO NOT REMOVE THE TITLE -->
+    <!--Removing the title creates an issue where clicking on extension icon automatically kills the MSHTA.exe  -->
+    <title>Amazon Assistant</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <script type="text/javascript">
+
+        /**
+         *  Formats the error
+         *  function returns true
+         *  which prevents the firing of the default event handler
+         */
+        function globalErrorHandler(msg, url, lineNo, columnNo, error) {
+            var message = [
+                'Message: ' + msg,
+                'URL: ' + url,
+                'Line: ' + lineNo,
+                'Column: ' + columnNo,
+                'Error object: ' + JSON.stringify(error)
+            ].join(' - ');
+           //console.log(message);
+
+            return true;
+        }
+
+        // Suppress the error if any in the aaLoader js
+        window.onerror = globalErrorHandler;
+
+        onblur = function () {
+            moveOnBlur();
+        };
+
+        var focusOn = false;
+
+        /* move window to coordinates (-2000, -2000) on blur event */
+        moveOnBlur = function () {
+            /* clear the onblur event handler of window */
+            if(onblur) {
+                onblur = null;
+            }
+
+            // Whenever setFocus() function gets called, onblur event automatically gets fired. setFocus() sets
+            // the focus on IEPanel and fires the onblur event which should be ignored to continue show the Gateway up.
+            if(!focusOn) {
+                focusOn = true;
+                return;
+            }
+
+            // Hide the Extension Panel
+            window.moveTo(-2000, -2000);
+
+            // Remove the Gateway IFrame source when the Panel is not being shown
+            try {
+                window.IEPanel.document.getElementById("UBPv2MainPanelFrame").src = "";
+            } catch(err) {}
+        }
+
+        /* Set focus to 'IEPanel' IFrame */
+        setFocus = function () {
+            window.document.getElementById("IEPanel").focus();
+        }
+    </script>
+    <style type="text/css">
+        html, body, iframe {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: #ccc;
+            box-sizing: border-box;
+            border-radius: 4px;
+            /*background: rgba(35, 47, 62, 1);*/
+            border: 1px solid #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+
+<!--
+    103 is the resource id for InternetExplorerPanel.html inside aaResources DLL
+    Application attribute is needed to provide iframe script permission to access with their parent
+-->
+<iframe id="IEPanel" onload="setFocus()" onblur="moveOnBlur();" application="yes" src="res://aaResources.dll/103" style="width: 330px; height: 605px; margin: 0px; padding: 0px; border: 0px; overflow: hidden;"></iframe>
+
+<!--
+    102 is the resource id for InternetExplorerExtension.html inside aaResources DLL
+    Application attribute is needed to provide iframe script permission to access with their parent
+-->
+<iframe id="IEExtension" application="yes" src="res://aaResources.dll/102" style="display: none"></iframe>
+
+<script type="text/javascript">
+
+    /**
+     * A recursive function which iterates through each iframe in each level
+     * and add an onerror handler function to suppress errors.
+     * @param win
+     * @param handler
+     */
+    function addErrorHandler(win, handler){
+        if(win) win.onerror = handler;
+        var numberOfIFrames = win && win.frames && win.frames.length;
+        for(var index = 0; index < numberOfIFrames; index++){
+            addErrorHandler(win.frames[index], handler);
+        }
+    }
+    //start with this window... and add handler recursively
+    addErrorHandler(window, globalErrorHandler);
+</script>
+
+</body>
+</html>

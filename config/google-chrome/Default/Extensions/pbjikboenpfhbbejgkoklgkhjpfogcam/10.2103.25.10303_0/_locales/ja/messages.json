@@ -1,0 +1,53 @@
+{
+   "appDesc": {
+      "message": "Amazonの公式ブラウザ拡張機能。 インストールすることにより、こちらの利用規約に同意いただいたものとみなします：amazon.co.jp/aa/TOU"
+   },
+   "appName": {
+      "message": "Chrome用のAmazon Assistant"
+   },
+   "appTitle": {
+      "message": "Amazon Assistant"
+   },
+   "changeMarketplaceString": {
+      "message": "拡張を再ロードするには、近くの場所を選択してみてください。"
+   },
+   "emailBody1": {
+      "message": "私は改善にご協力ください！私はそれを修正することができますので、何が起こったのかを教えてください。"
+   },
+   "emailBody2": {
+      "message": "何が起こった？"
+   },
+   "emailBody3": {
+      "message": "それ以外のものは、お使いのコンピュータ、ブラウザまたはネットワーク接続について教えてできますか？"
+   },
+   "emailBody4": {
+      "message": "参照ID： "
+   },
+   "emailSubject": {
+      "message": "Amazon Assistantについてのフィードバック"
+   },
+   "feedbackMessage": {
+      "message": "Amazon Assistantのフィードバックを送信"
+   },
+   "feedbackString": {
+      "message": "フィードバック"
+   },
+   "improveString": {
+      "message": "あなたは私ので、私は改善することができます何が起こっているのか知らせてもらえますか？"
+   },
+   "noLuckString": {
+      "message": "まだ運？"
+   },
+   "resetAgainString": {
+      "message": "閉じて、再びリセットしてみてください"
+   },
+   "resetString": {
+      "message": "閉じるとリセット"
+   },
+   "sorryString1": {
+      "message": "このことについて申し訳ありませんが、"
+   },
+   "sorryString2": {
+      "message": "私はトラブルの負荷を抱えています。"
+   }
+}

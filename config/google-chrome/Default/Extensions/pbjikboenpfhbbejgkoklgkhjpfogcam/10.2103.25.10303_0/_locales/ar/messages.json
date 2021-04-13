@@ -1,0 +1,53 @@
+{
+   "appDesc": {
+      "message": "ملحق المتصفح الرسمي لأمازون. من خلال تثبيت، أنت توافق على شروط الاستخدام على amazon.ae/aa/TOU"
+   },
+   "appName": {
+      "message": "مساعد أمازون لـ Chrome"
+   },
+   "appTitle": {
+      "message": "مساعد أمازون"
+   },
+   "changeMarketplaceString": {
+      "message": "يرجى محاولة تحديد موقع قريب لإعادة تحميل الملحق."
+   },
+   "emailBody1": {
+      "message": "ساعدني على التحسن! من فضلك أخبرني ماذا حدث حتى أتمكن من إصلاحه."
+   },
+   "emailBody2": {
+      "message": "ماذا حدث؟"
+   },
+   "emailBody3": {
+      "message": "أي شيء آخر يمكنك إخباري به عن جهاز الكمبيوتر أو متصفحك أو اتصال الشبكة؟"
+   },
+   "emailBody4": {
+      "message": "Reference ID: "
+   },
+   "emailSubject": {
+      "message": "ملاحظات حول مساعد أمازون"
+   },
+   "feedbackMessage": {
+      "message": "إرسال تقييم مساعد أمازون"
+   },
+   "feedbackString": {
+      "message": "التقييم"
+   },
+   "improveString": {
+      "message": "هل يمكنك إخباري بما يجري حتى أتمكن من التحسين؟"
+   },
+   "noLuckString": {
+      "message": "هل ما زالت المشكلة قائمة؟"
+   },
+   "resetAgainString": {
+      "message": "حاول إغلاقه وإعادة التعيين مرة أخرى"
+   },
+   "resetString": {
+      "message": "إغلاق وإعادة تعيين"
+   },
+   "sorryString1": {
+      "message": "نأسف لذلك،"
+   },
+   "sorryString2": {
+      "message": "أواجه مشكلة في التحميل."
+   }
+}

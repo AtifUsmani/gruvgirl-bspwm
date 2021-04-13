@@ -1,0 +1,53 @@
+{
+   "appDesc": {
+      "message": "Amazons offizielle Browser-Erweiterung. Durch die Installation stimmen Sie den Nutzungsbedingungen zu: amazon.de/aa/TOU"
+   },
+   "appName": {
+      "message": "Amazon Assistant für Chrome"
+   },
+   "appTitle": {
+      "message": "Amazon Assistant"
+   },
+   "changeMarketplaceString": {
+      "message": "Bitte versuchen Sie, einen Standort in der Nähe auszuwählen, um die Erweiterung neu zu laden."
+   },
+   "emailBody1": {
+      "message": "Hilf mir, zu verbessern! Bitte sagen Sie mir, was passiert ist, so kann ich es zu beheben."
+   },
+   "emailBody2": {
+      "message": "Was ist passiert?"
+   },
+   "emailBody3": {
+      "message": "Alles andere können Sie mir über Ihren Computer, Browser oder Netzwerkverbindung zu erzählen?"
+   },
+   "emailBody4": {
+      "message": "Referenz-ID: "
+   },
+   "emailSubject": {
+      "message": "Feedback zur Amazon Assistant"
+   },
+   "feedbackMessage": {
+      "message": "Feedback zu Amazon Assistant senden"
+   },
+   "feedbackString": {
+      "message": "Feedback"
+   },
+   "improveString": {
+      "message": "Könnten Sie lassen Sie mich wissen , was auf so dass ich verbessern kann gehen ?"
+   },
+   "noLuckString": {
+      "message": "Noch kein Glück ?"
+   },
+   "resetAgainString": {
+      "message": "Versuchen Sie, zu schließen und wieder zurückgesetzt"
+   },
+   "resetString": {
+      "message": "Schließen und Rücksetzen"
+   },
+   "sorryString1": {
+      "message": "Tut mir leid,"
+   },
+   "sorryString2": {
+      "message": "ich habe Probleme beim Laden."
+   }
+}

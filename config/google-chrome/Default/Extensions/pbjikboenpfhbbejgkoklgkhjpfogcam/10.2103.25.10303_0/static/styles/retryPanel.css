@@ -1,0 +1,92 @@
+html, body, iframe {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	font-family: "Amazon Ember", Arial, sans-serif;
+}
+body {
+	text-align: center;
+	background-color: #F6F6F6;
+}
+#retrySection {
+	padding: 35px;
+}
+#retryHtml {
+	height: 600px;
+	width: 320px;
+}
+a, a:visited {
+	font-size: 11px;
+	color: #0066C0;
+	text-decoration: none;
+}
+p {
+	font-size: 15px;
+	color: #111;
+}
+p:first-of-type {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+p:last-of-type {
+	margin-top: 0;
+}
+#sorryTextLine1, #sorryTextLine2 {
+	font-weight: 700;
+}
+#sorryTextLine2 {
+	margin-top: 0px;
+}
+#feedbackContainer {
+	margin-top: 30px;
+}
+#noLuckText {
+	font-size: 11px;
+}
+select {
+    position: relative;
+	overflow: hidden;
+	height: 29px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: #eff1f3;
+	background: url(../images/arrow.png) no-repeat right 8px top 10px,
+		linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+	border-color: #ADB1B8 #A2A6AC #8D9096;
+    border-style: solid;
+    border-radius: 3px;
+	padding: 0 20px 0 11px;
+	font-size: 13px;
+	font-weight: 400;
+	color: #111;
+	cursor: pointer;
+    text-align: center;
+}
+select:focus {
+	outline: none;
+	border-color: #e77600;
+	box-shadow: 0 0 3px 2px rgba(228, 121, 17, 0.5);
+}
+#marketplaceDropdown {
+	width: 230px;
+}
+#container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 46px);
+}
+#footer {
+	height: 46px;
+	color: #999;
+	font-size: 11px;
+	line-height: 16px;
+}
+#footer span {
+	display: block;
+}

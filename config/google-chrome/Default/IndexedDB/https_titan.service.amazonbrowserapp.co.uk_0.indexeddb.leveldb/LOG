@@ -1,0 +1,8 @@
+2021/04/13-18:09:15.224 3b3 Reusing MANIFEST /home/atifu/.config/google-chrome/Default/IndexedDB/https_titan.service.amazonbrowserapp.co.uk_0.indexeddb.leveldb/MANIFEST-000001
+2021/04/13-18:09:15.224 3b3 Recovering log #4
+2021/04/13-18:09:15.225 3b3 Reusing old log /home/atifu/.config/google-chrome/Default/IndexedDB/https_titan.service.amazonbrowserapp.co.uk_0.indexeddb.leveldb/000004.log 
+2021/04/13-18:09:17.234 3b3 Level-0 table #8: started
+2021/04/13-18:09:17.234 3b3 Level-0 table #8: 0 bytes OK
+2021/04/13-18:09:17.241 3b3 Delete type=0 #4
+2021/04/13-18:09:17.241 3b3 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2021/04/13-18:09:17.242 3b3 Manual compaction at level-1 from (begin) .. (end); will stop at (end)

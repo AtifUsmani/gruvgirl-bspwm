@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+    Extension context for the IE Extension
+-->
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+</head>
+<body>
+  <script>
+    /*
+     * Catch all unhandled exceptions for the extension.
+     * This prevents script errors from alerting the user.
+     */
+    window.onerror = function (e) {
+      if(window.console) {
+        // If we can, log the issue to the console to prevent it from being invisible.
+        console.log("An unhandled extension exception was caught: ", e);
+      }
+
+      // Prevent the error from propogating to the default handler
+      // This prevents the error popup from ocurring in IE
+      return true;
+    };
+  </script>
+
+  <!--
+      103 is the resource id for require js script inside aaResources DLL
+  -->
+  <script type="text/javascript" src="res://aaResources.dll/103"></script>
+
+  <!--
+      104 is the resource id for Extension.built.min.js inside aaResources DLL
+  -->
+  <script type="text/javascript" src="res://aaResources.dll/104"></script>
+</body>
+</html>

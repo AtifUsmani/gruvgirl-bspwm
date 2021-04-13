@@ -1,0 +1,53 @@
+{
+   "appDesc": {
+      "message": "Amazon's official browser extension. By installing you agree to the Conditions of Use at amazon.co.uk/aa/TOU"
+   },
+   "appName": {
+      "message": "Amazon Assistant for Chrome"
+   },
+   "appTitle": {
+      "message": "Amazon Assistant"
+   },
+   "changeMarketplaceString": {
+      "message": "Please try selecting a nearby location to reload the extension."
+   },
+   "emailBody1": {
+      "message": "Help me improve! Please tell me what happened so I can fix it."
+   },
+   "emailBody2": {
+      "message": "What happened?"
+   },
+   "emailBody3": {
+      "message": "Anything else you can tell me about your computer, browser or network connection?"
+   },
+   "emailBody4": {
+      "message": "Reference ID: "
+   },
+   "emailSubject": {
+      "message": "Amazon Assistant Feedback"
+   },
+   "feedbackMessage": {
+      "message": "Send Amazon Assistant feedback"
+   },
+   "feedbackString": {
+      "message": "Feedback"
+   },
+   "improveString": {
+      "message": "Could you let me know what's going on so I can improve?"
+   },
+   "noLuckString": {
+      "message": "Still no luck?"
+   },
+   "resetAgainString": {
+      "message": "Try to close and reset again"
+   },
+   "resetString": {
+      "message": "Close and reset"
+   },
+   "sorryString1": {
+      "message": "Sorry about this,"
+   },
+   "sorryString2": {
+      "message": "I'm having trouble loading."
+   }
+}

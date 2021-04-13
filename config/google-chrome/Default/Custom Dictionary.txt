@@ -1,0 +1,3 @@
+GIVEALL
+INFAMMO
+checksum_v1 = c331c693e0edabdf2b5e3790095bc635

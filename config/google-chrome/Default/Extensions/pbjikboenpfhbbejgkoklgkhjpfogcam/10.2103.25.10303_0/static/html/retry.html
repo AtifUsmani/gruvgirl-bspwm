@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html id="retryHtml">
+<head>
+    <title>Amazon Browser Apps Retry</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <link type="text/css" rel="stylesheet" href="/static/styles/retryPanel.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="retrySection">
+            <img src="/static/images/icon.png"/>
+            <p id="sorryTextLine1">
+                Sorry about this,
+            </p>
+            <p id="sorryTextLine2">
+                I'm having trouble loading.
+            </p>
+
+            <p id="marketplaceMessage">
+                Please try selecting a nearby location to reload the extension.
+            </p>
+            <select id="marketplaceDropdown">
+                <option value="US">United States - Amazon.com</option>
+                <option value="CA">Canada - Amazon.ca</option>
+                <option value="JP">日本 - Amazon.co.jp</option>
+                <option value="ES">España - Amazon.es</option>
+                <option value="IT">Italia - Amazon.it</option>
+                <option value="FR">France - Amazon.fr</option>
+                <option value="DE">Deutschland - Amazon.de</option>
+                <option value="UK">United Kingdom - Amazon.co.uk</option>
+                <option value="IN">India - Amazon.in</option>
+                <option value="MX">Mexico - Amazon.com.mx</option>
+                <option value="BR">Brasil - Amazon.com.br</option>
+                <option value="AU">Australia - Amazon.com.au</option>
+            </select>
+
+            <div id="feedbackContainer">
+                <span id="noLuckText">
+                    Still no luck?
+                </span>
+                <a href="" id="feedbackButton">Send Amazon Assistant feedback</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <span id="errorCode"></span>
+        <span id="logId"></span>
+    </div>
+
+    <script type="text/javascript" src="../js/retryHandler.js"></script>
+</body>
+</html>

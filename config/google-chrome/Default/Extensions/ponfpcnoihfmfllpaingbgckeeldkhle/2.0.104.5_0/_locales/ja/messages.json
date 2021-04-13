@@ -1,0 +1,611 @@
+{
+   "add": {
+      "message": "追加"
+   },
+   "add_to_whitelist": {
+      "message": "ホワイトリストに追加"
+   },
+   "ads_management": {
+      "message": "広告管理"
+   },
+   "allow_ads_from_subs": {
+      "message": "チャンネル登録したチャンネルでは広告を削除しない"
+   },
+   "appearance": {
+      "message": "外観"
+   },
+   "auto_apply_video_filters": {
+      "message": "自動でビデオフィルターを適用する"
+   },
+   "auto_cinema_mode": {
+      "message": "自動的にシネマモードを有効にする"
+   },
+   "auto_enable_theater_mode": {
+      "message": "YouTubeの「シアターモード」を自動的に有効化する"
+   },
+   "auto_execute_script": {
+      "message": "YouTubeがタブに読み込まれたときに自動的にスクリプトを実行する"
+   },
+   "auto_expand_description": {
+      "message": "動画の説明を自動的に展開する"
+   },
+   "auto_expand_player": {
+      "message": "プレーヤーを自動的に拡大する"
+   },
+   "auto_hide_cards_end_screens": {
+      "message": "自動で注釈を非表示にする"
+   },
+   "auto_select_quality": {
+      "message": "画質を自動的に選択する"
+   },
+   "auto_sort_comments": {
+      "message": "コメントを新しい順に自動的に並べ替える"
+   },
+   "autoplay": {
+      "message": "自動再生"
+   },
+   "backup": {
+      "message": "バックアップ"
+   },
+   "below_video_player": {
+      "message": "プレーヤーの下"
+   },
+   "block_ads": {
+      "message": "広告を削除"
+   },
+   "block_hfr_formats": {
+      "message": "高フレームレートフォーマット(48,50,60FPS)の代わりに、標準フレームレートフォーマット(24,25,30FPS)の使用を強制する"
+   },
+   "block_webm_formats": {
+      "message": "WebM形式とVP9コーデック(最大解像度1080p60 HD)の代わりに、MP4形式とAVCコーデック(H.264)の使用を強制する"
+   },
+   "boost_volume": {
+      "message": "音量ブースト"
+   },
+   "bottom_left_corner": {
+      "message": "左下"
+   },
+   "bottom_of_window": {
+      "message": "ウィンドウの一番下"
+   },
+   "bottom_right_corner": {
+      "message": "右下"
+   },
+   "brightness": {
+      "message": "輝度:"
+   },
+   "cards_end_screens_control_info": {
+      "message": "注釈の表示/非表示を切り替えます"
+   },
+   "center_control_bar": {
+      "message": "プレーヤーが拡大中/フルスクリーンの時、コントロールバーを、プレーヤーの下の中央に移動させる"
+   },
+   "center_video_player": {
+      "message": "動画プレイヤーを画面の中央に配置する"
+   },
+   "cinema_mode": {
+      "message": "シネマモード"
+   },
+   "cinema_mode_control_info": {
+      "message": "シネマモードの有効/無効を切り替えます"
+   },
+   "cinema_mode_toggle_size": {
+      "message": "シネマモードが有効のとき自動的にプレーヤーを拡大する"
+   },
+   "color": {
+      "message": "色:"
+   },
+   "color_inversion": {
+      "message": "色反転:"
+   },
+   "configure_keyboard_shortcuts": {
+      "message": "キーボードショートカットを設定"
+   },
+   "contrast": {
+      "message": "コントラスト:"
+   },
+   "control_bar_location": {
+      "message": "コントロールバーの位置:"
+   },
+   "control_speed": {
+      "message": "Ctrl キーを押したままカーソルがプレーヤー上にあるときに、マウスホイールで再生速度を変更する"
+   },
+   "control_speed_mouse_button": {
+      "message": "右クリックしているときのみ"
+   },
+   "control_volume": {
+      "message": "カーソルがプレーヤー上にあるときにマウスホイールで音量を変更する"
+   },
+   "control_volume_mouse_button": {
+      "message": "右クリックしているときのみ"
+   },
+   "controls": {
+      "message": "コントロール"
+   },
+   "controls_visible": {
+      "message": "ボタンを表示させたままにして、•••をクリックしたりカーソルを合わせる必要をなくす"
+   },
+   "controls_within_control_bar": {
+      "message": "ボタンをコントロールバーに表示"
+   },
+   "controls_within_video_player": {
+      "message": "ボタンをプレーヤー内に表示させる"
+   },
+   "copy_to_clipboard": {
+      "message": "クリップボードにコピー"
+   },
+   "custom_script": {
+      "message": "カスタムスクリプト"
+   },
+   "custom_script_control_info": {
+      "message": "カスタムスクリプトを実行します"
+   },
+   "custom_script_instructions": {
+      "message": "ここにJavaScriptコードを貼り付けるか入力し、下のボタンで保存します。実行したいときにツールバーの「カスタムスクリプト」ボタンをクリックします。"
+   },
+   "custom_script_warning": {
+      "message": "セキュリティ上の理由から、あなたが理解しているコードまたは信頼する開発者が作成したコードのみを使用すべきです。"
+   },
+   "custom_theme": {
+      "message": "カスタムテーマ"
+   },
+   "custom_theme_instructions": {
+      "message": "ここにCSSコードを貼り付けるか入力して、下のボタンで保存してください。"
+   },
+   "dark_theme": {
+      "message": "ダークテーマ"
+   },
+   "decrease_playback_speed": {
+      "message": "再生速度を下げる"
+   },
+   "default_playback_speed": {
+      "message": "デフォルト再生速度:"
+   },
+   "default_volume_level": {
+      "message": "デフォルト音量レベル:"
+   },
+   "description": {
+      "message": "YouTubeを管理して、ユーザー体験を向上させましょう!"
+   },
+   "detailed_description": {
+      "message": "YouTubeを最大限に活用するために造られたこの拡張機能には、さまざまな機能が搭載されており、特に、必要に応じて広告を管理したり、再生速度と音量を魔法のように制御したりできます。適切な画質を何度も何度も選択するなどの反復的なタスクを自動化し、プロのようにYouTubeを制御するために数十のキーボードショートカットを構成します。ぜひお試しください。ただし、それ以降はこれなしでYouTubeを使用したくなくなることに注意してください。😉\n\nこの拡張機能はMozillaによって誇らしげに推奨されており、データを収集せず、ユーザーのプライバシーを尊重します。\n\nYouTube は Google LLC. の商標です。この商標の使用には、Googleの許可が必要です。"
+   },
+   "disable_autoplay": {
+      "message": "YouTubeの「自動再生」機能を無効にする"
+   },
+   "display_control_bar": {
+      "message": "コントロールバーを、カーソルの合わせたときのみ表示させる"
+   },
+   "donate": {
+      "message": "寄付"
+   },
+   "execute_custom_script": {
+      "message": "カスタムスクリプトを実行する"
+   },
+   "expand": {
+      "message": "拡大"
+   },
+   "expand_shrink_video_player": {
+      "message": "動画プレイヤーを拡大/縮小する"
+   },
+   "expanded_player_viewport": {
+      "message": "シネマモードが有効でない場合は、のアスペクト比を変更せずに拡大されたプレーヤーに表示領域全体を使用する"
+   },
+   "export": {
+      "message": "エクスポート"
+   },
+   "export_instructions": {
+      "message": "新しいテキストファイルに下のコードをそのまま保存してください"
+   },
+   "flip_horizontally": {
+      "message": "横方向に反転"
+   },
+   "flip_horizontally_control_info": {
+      "message": "動画を左右反転します"
+   },
+   "flip_vertically": {
+      "message": "縦方向に反転"
+   },
+   "flip_vertically_control_info": {
+      "message": "動画を上下反転します"
+   },
+   "flip_video_horizontally": {
+      "message": "動画を左右反転する"
+   },
+   "flip_video_vertically": {
+      "message": "動画を左右反転する"
+   },
+   "focus_video_player": {
+      "message": "動画プレイヤーにフォーカスする"
+   },
+   "gaussian_blur": {
+      "message": "ガウスぼかし:"
+   },
+   "grayscale": {
+      "message": "グレースケール:"
+   },
+   "hide_chat": {
+      "message": "チャットを非表示"
+   },
+   "hide_comments": {
+      "message": "コメントを非表示"
+   },
+   "hide_related_videos": {
+      "message": "関連動画を非表示"
+   },
+   "hue_rotation": {
+      "message": "色相:"
+   },
+   "ignore_playlists": {
+      "message": "再生リストの動画を一時停止しない"
+   },
+   "ignore_pop_up_player": {
+      "message": "ポップアッププレイヤーでは無視する"
+   },
+   "import": {
+      "message": "インポート"
+   },
+   "import_error": {
+      "message": "バックアップしたファイルの内容は有効ではありません"
+   },
+   "import_instructions": {
+      "message": "バックアップしたファイルの内容を貼り付けて「インポート」をクリックしてください。成功すると、自動的に再読み込みされます。"
+   },
+   "increase_playback_speed": {
+      "message": "再生速度を上げる"
+   },
+   "keyboard_shortcuts": {
+      "message": "キーボードショートカット"
+   },
+   "keyboard_shortcuts_control_info": {
+      "message": "YouTubeの全てのキーボードショートカットのリストを表示します (外部ページ)"
+   },
+   "keyboard_shortcuts_page": {
+      "message": "YouTubeの全てのキーボードショートカットのリストを表示する"
+   },
+   "launch_mini_player": {
+      "message": "コメントを読むために下にスクロールするときにミニプレーヤーを起動する"
+   },
+   "locale_code": {
+      "message": "ja"
+   },
+   "locale_dir": {
+      "message": "ltr"
+   },
+   "loop": {
+      "message": "ループ再生"
+   },
+   "loop_control_info": {
+      "message": "ループの有効/無効を切り替えます"
+   },
+   "loop_end": {
+      "message": "終了:"
+   },
+   "loop_start": {
+      "message": "開始:"
+   },
+   "message": {
+      "message": "メッセージ"
+   },
+   "mini_player": {
+      "message": "ミニプレイヤー"
+   },
+   "mini_player_position": {
+      "message": "ミニプレイヤーの場所:"
+   },
+   "mini_player_size": {
+      "message": "ミニプレイヤーの大きさ:"
+   },
+   "not_interested_control_info": {
+      "message": "広告を削除します"
+   },
+   "not_now": {
+      "message": "後で"
+   },
+   "opacity": {
+      "message": "不透明度:"
+   },
+   "open_options_page": {
+      "message": "設定ページを開く"
+   },
+   "options": {
+      "message": "設定"
+   },
+   "options_control_info": {
+      "message": "設定ページを開きます"
+   },
+   "override_playback_speeds": {
+      "message": "デフォルトの再生速度を上書きする"
+   },
+   "page_reload_required": {
+      "message": "Enhancer for YouTube™が更新されました。このページを再読み込みする必要があります。"
+   },
+   "pause_videos": {
+      "message": "フォアグラウンドタブで再生を始めたとき、バックグラウンドタブで再生中の動画を一時停止する"
+   },
+   "playback_quality": {
+      "message": "画質"
+   },
+   "playback_speed": {
+      "message": "再生速度"
+   },
+   "playlists": {
+      "message": "プレイリスト:"
+   },
+   "playlists_full_screen": {
+      "message": "再生リスト(フルスクリーン):"
+   },
+   "pop_up_player": {
+      "message": "ポップアッププレイヤー"
+   },
+   "pop_up_player_control_info": {
+      "message": "ポップアッププレイヤーで再生します"
+   },
+   "pop_up_player_embeds": {
+      "message": "ポップアッププレイヤーと埋め込み動画:"
+   },
+   "pop_up_player_embeds_full_screen": {
+      "message": "ポップアッププレイヤーと埋め込み動画(フルスクリーン):"
+   },
+   "pop_up_player_size": {
+      "message": "ポップアッププレイヤーの大きさ"
+   },
+   "preserve_black_bars_color": {
+      "message": "YouTube-DeepDarkテーマかシネマモードを使用中の場合、黒いバーの色を変更しない"
+   },
+   "prevent_autoplay": {
+      "message": "バックグラウンドタブで開いた動画を自動的に一時停止する"
+   },
+   "prevent_autoplay_foreground_tab": {
+      "message": "フォアグラウンドタブで開いた動画も一時停止する"
+   },
+   "preview": {
+      "message": "プレビュー"
+   },
+   "rate": {
+      "message": "評価"
+   },
+   "rate_extension": {
+      "message": "Enhancer for YouTube™の使用体験を評価する"
+   },
+   "remove": {
+      "message": "削除"
+   },
+   "remove_ads": {
+      "message": "広告を削除"
+   },
+   "remove_from_whitelist": {
+      "message": "ホワイトリストから削除"
+   },
+   "reset": {
+      "message": "リセット"
+   },
+   "reverse_mouse_wheel_direction": {
+      "message": "再生速度や音量を変更するときのマウスホイールの回転方向を逆にする"
+   },
+   "reverse_playlist": {
+      "message": "プレイリストを反転"
+   },
+   "reverse_playlist_control_info": {
+      "message": "ポップアッププレイヤーで順序を反転させて再生します"
+   },
+   "reverse_playlist_order": {
+      "message": "再生リストの順番を逆にする"
+   },
+   "saturation": {
+      "message": "彩度:"
+   },
+   "save": {
+      "message": "保存"
+   },
+   "screenshot": {
+      "message": "スクリーンショット"
+   },
+   "screenshot_control_info": {
+      "message": "動画のスクリーンショットを撮影します"
+   },
+   "select_default_playback_speed": {
+      "message": "デフォルトの再生速度を選択する"
+   },
+   "select_normal_playback_speed": {
+      "message": "通常の再生速度にする"
+   },
+   "select_quality_1080p": {
+      "message": "画質「1080p」を選択"
+   },
+   "select_quality_1440p": {
+      "message": "画質「1440p」を選択"
+   },
+   "select_quality_144p": {
+      "message": "画質「144p」を選択"
+   },
+   "select_quality_2160p": {
+      "message": "画質「2160p」を選択"
+   },
+   "select_quality_240p": {
+      "message": "画質「240p」を選択"
+   },
+   "select_quality_2880p": {
+      "message": "画質「2880p」を選択"
+   },
+   "select_quality_360p": {
+      "message": "画質「360p」を選択"
+   },
+   "select_quality_4320p": {
+      "message": "画質「4320p」を選択"
+   },
+   "select_quality_480p": {
+      "message": "画質「480p」を選択"
+   },
+   "select_quality_720p": {
+      "message": "画質「720p」を選択"
+   },
+   "select_quality_auto": {
+      "message": "画質「自動」を選択"
+   },
+   "select_quality_full_screen": {
+      "message": "フルスクリーンモードのときは違う画質を選択する"
+   },
+   "sepia": {
+      "message": "セピア:"
+   },
+   "shrink": {
+      "message": "縮小"
+   },
+   "size_control_info": {
+      "message": "動画プレイヤーを拡大/縮小します"
+   },
+   "skip_ads": {
+      "message": "広告をスキップ"
+   },
+   "skip_remove_ads": {
+      "message": "広告をスキップまたは削除する"
+   },
+   "speed": {
+      "message": "再生速度"
+   },
+   "speed_control_info": {
+      "message": "このボタン上でホイールを動かすと再生速度を変更できます。クリックでデフォルトの再生速度に戻ります"
+   },
+   "speed_minus_control_info": {
+      "message": "再生速度を下げます"
+   },
+   "speed_plus_control_info": {
+      "message": "再生速度を上げます"
+   },
+   "speed_variation": {
+      "message": "マウスホイールや再生速度+-ボタンでの速度変化:"
+   },
+   "stop": {
+      "message": "停止"
+   },
+   "stop_control_info": {
+      "message": "動画を停止します"
+   },
+   "stop_video": {
+      "message": "停止する"
+   },
+   "stop_videos": {
+      "message": "自動的に一時停止したときのプリロードを無効にする"
+   },
+   "support": {
+      "message": "サポート"
+   },
+   "switch_back_previous_quality": {
+      "message": "フルスクリーンモード終了時は以前の画質に戻す"
+   },
+   "take_screenshot": {
+      "message": "動画のスクリーンショットを撮影する"
+   },
+   "theme": {
+      "message": "テーマ"
+   },
+   "theme_custom_theme": {
+      "message": "テーマ: カスタムテーマ"
+   },
+   "theme_youtube_dark": {
+      "message": "テーマ: YouTube™ (ダーク)"
+   },
+   "theme_youtube_deep_dark": {
+      "message": "テーマ: YouTube-DeepDark"
+   },
+   "theme_youtube_deep_dark_custom": {
+      "message": "テーマ: YouTube-DeepDark (カスタム)"
+   },
+   "theme_youtube_light": {
+      "message": "テーマ: YouTube™ (ライト)"
+   },
+   "toggle_cards_end_screens": {
+      "message": "注釈の表示/非表示を切り替える"
+   },
+   "toggle_cinema_mode": {
+      "message": "シネマモードを切り替える"
+   },
+   "toggle_comments_visibility": {
+      "message": "コメントの表示/非表示を切り替える"
+   },
+   "toggle_loop": {
+      "message": "ループモードを切り替える"
+   },
+   "toggle_pip_mode": {
+      "message": "ピクチャー・イン・ピクチャーモードを切り替え"
+   },
+   "toggle_related_videos_visibility": {
+      "message": "関連動画の表示/非表示を切り替える"
+   },
+   "toggle_video_filters": {
+      "message": "ビデオフィルターを切り替える"
+   },
+   "toggle_visibility": {
+      "message": "注釈の表示/非表示を切り替える"
+   },
+   "toggle_volume_booster": {
+      "message": "音量ブーストを切り替える"
+   },
+   "top_left_corner": {
+      "message": "左上"
+   },
+   "top_right_corner": {
+      "message": "右上"
+   },
+   "translate": {
+      "message": "翻訳"
+   },
+   "variant": {
+      "message": "バリエーション:"
+   },
+   "video_codecs_and_formats": {
+      "message": "ビデオコーデックとフォーマット"
+   },
+   "video_filters": {
+      "message": "ビデオフィルター"
+   },
+   "video_filters_control_info": {
+      "message": "フィルタの有効/無効を切り替えます"
+   },
+   "video_player": {
+      "message": "動画プレイヤー"
+   },
+   "videos": {
+      "message": "動画:"
+   },
+   "videos_full_screen": {
+      "message": "動画(フルスクリーン):"
+   },
+   "volume": {
+      "message": "音量"
+   },
+   "volume_booster_control_info": {
+      "message": "音量ブーストの有効/無効を切り替えます"
+   },
+   "volume_booster_firefox_bug": {
+      "message": "Firefoxのバグ: 音量ブーストが有効になっていると、再生速度が変更できなくなることがあります。ページの再読み込みをすると変更できるかもしれません。 [詳細: https://bugzilla.mozilla.org/show_bug.cgi?id=1519707 ]"
+   },
+   "volume_booster_level": {
+      "message": "ボリュームブーストレベル"
+   },
+   "volume_variation": {
+      "message": "マウスホイールが回転したときの音量変化:"
+   },
+   "watch_pop_up_player": {
+      "message": "ポップアッププレイヤーで視聴する"
+   },
+   "whitelist_control_info": {
+      "message": "チャンネルをホワイトリストに追加/削除します"
+   },
+   "whitelist_shortcut": {
+      "message": "チャンネルをホワイトリストに追加/削除する"
+   },
+   "whitelisted_channels": {
+      "message": "ホワイトリストのチャンネル:"
+   },
+   "youtube_dark_theme": {
+      "message": "YouTube (公式テーマ)"
+   },
+   "youtube_deep_dark": {
+      "message": "YouTube-DeepDark (by RaitaroH)"
+   },
+   "youtube_deep_dark_custom": {
+      "message": "YouTube-DeepDark (カスタム)"
+   }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>One more step :: Download with Free Download Manager</title>
+    <link rel="stylesheet" href="materialize/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <h1>One last step</h1>
+    <p>For the extension to execute external commands (start the external download manager for instance and send links to it) one extra step is required. Please download, unzip and install this minimal native client to allow the extension to communicate with the external side.</p>
+    <ul class="browser-default">
+      <li class="step1">Click <a href="#" data-cmd="download">here</a> to download the ZIP package for your operating system or click <a href="https://github.com/belaviyo/native-client/releases" target="_blank">here</a> to browse all available download options.</li>
+      <li>Extract the downloaded package into a local directory</li>
+      <li class="linux">Now open a terminal in the root directory and run <code>./install.sh</code>. You can alternatively drop the <code>install.sh</code> file to a terminal window and press the Enter key!</li>
+      <li class="windows">Now double-click the <code>install.bat</code> file</li>
+    </ul>
+    <div class="flex">
+      <input type="button" data-cmd="check" value="Check Connection">
+    </div>
+    <div id="followup" data-hidden=true>
+      <h5>Native integration works!</h5>
+      If you still get this page, the native side is not responding. Most likely:
+      <ul class="browser-default">
+        <li>The extension cannot find the native application. Open the <a href="#" data-cmd="options">options page</a> and set the correct path</li>
+        <li>The native application is found but exited with a non successful exit code</li>
+      </ul>
+    </div>
+    <p class="note">This extension only integrates your browser with the external download manager. You need to have the actual download manager for the extension to operate.</p>
+    <p class="note">The installer script copies a few files to two different locations for your browser to be able to detect this native client. If you already have NodeJS in your system, the installed version of NodeJS will be used. So please make sure you have an up-to-date version of NodeJS installed. If you don't have this application, the included portable version will be used. Read more <a target="_blank" href="https://github.com/belaviyo/native-client">here</a>.</p>
+    <p class="note">To completely remove this native client, run <code class="linux">./uninstall.sh</code><code class="windows">uninstall.bat</code>.</p>
+    <p class="note">To check the native client's accessibility, click on the "<a href="#" data-cmd="check">Check Connection</a>" button. If you still get this page even when the "Check Button" reports successful connection, it means the application cannot be accessed (application's path is not correct in the <a href="#" data-cmd="options">options page</a>). If the path to the executable is correct and the native client is connected, you can debug the connection by <a target="_blank" href="https://www.chromium.org/for-testers/enable-logging">enabling console logs</a>.</p>
+    <p class="note">There is no need for administration permission for the native client to operate.</p>
+
+    <div class="guide">
+      <h5>Installation Guide</h5>
+      <ul class="browser-default">
+        <li>Windows: <a href="https://www.youtube.com/watch?v=yZAoy8SOd7o" target="_blank">YouTube</a></li>
+        <li>Mac &amp; Linux: <a href="https://www.youtube.com/watch?v=2asPoW2gJ-c" target="_blank">YouTube</a></li>
+      </ul>
+    </div>
+
+    <div class="guide">
+      <h5>FDM Features</h5>
+      <ul class="browser-default">
+        <li>BitTorrent support: Download files using BitTorrent protocol.</li>
+        <li>Enhanced audio/video files support: Preview audio/video files before download is completed and convert file format after download.</li>
+        <li>Download acceleration: Free Download Manager splits files into several sections and downloads them simultaneously, allowing you to use any type of connection at the maximum available speed. With FDM download speed increases, or even more!</li>
+        <li>Resuming broken downloads: When the downloading process is interrupted, you needn't start from the beginning again. Free Download Manager can resume broken download from where it was interrupted saving your time, nerves and money.</li>
+        <li>Smart file management and powerful scheduler: With FDM you can easily organize downloaded files by their type, placing them in predefined folders. A smart scheduler allows you to start and pause downloading files, as well as perform other actions (launch other applications, establish or hang up connection, etc.) at the set time.</li>
+        <li>Adjusting traffic usage: There are several traffic usage modes. You can adjust traffic usage for browsing the Internet and downloading files at the same time.</li>
+        <li>Cross-platform support: For Windows 7+ and macOS 10.12+.</li>
+        <li>GNU General Public License: Free Download Manager is released under GNU Public License!</li>
+      </ul>
+    </div>
+    <script src="materialize/js/materialize.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

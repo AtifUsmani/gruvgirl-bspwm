@@ -1,0 +1,5 @@
+2021/04/13-18:09:12.916 38e Reusing MANIFEST /home/atifu/.config/google-chrome/Default/IndexedDB/https_titan.service.amazonbrowserapp.co.uk_0.indexeddb.leveldb/MANIFEST-000001
+2021/04/13-18:09:14.926 3ab Level-0 table #5: started
+2021/04/13-18:09:14.933 3ab Level-0 table #5: 407 bytes OK
+2021/04/13-18:09:14.936 3ab Delete type=0 #3
+2021/04/13-18:09:14.937 3ab Manual compaction at level-0 from (begin) .. (end); will stop at (end)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html id="panelHtml">
+    <head>
+        <title>Amazon Browser Apps</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="pragma" content="no-cache">
+        <link type="text/css" rel="stylesheet" href="/static/styles/panel.css">
+    </head>
+   <!--
+
+    Step1: Creates an iframe with default dimensions.
+    Step2: call loadCachedGateway.js script to load the gateway URL that was used the last time.
+    Step3: Now, try to retrieve the actual gateway URL from the extension and store it in local storage
+
+   -->
+
+    <body>
+        <div id="spinnerSection">
+            <img src="/static/images/loader.gif"/>
+        </div>
+        <iframe id="UBPv2MainPanelFrame" src="about:blank">
+        </iframe>
+        <script type="text/javascript" src="../js/localStorage.js"></script>
+        <script type="text/javascript" src="../js/panic.js"></script>
+        <script type="text/javascript" src="../js/performanceMessaging.js"></script>
+        <script type="text/javascript" src="../js/loadCachedGateway.js"></script>
+
+
+        <!-- Get the updated URL, this is required if the locale has changed, otherwise
+             this request will make sure that it takes the latest URL.
+         -->
+        <script type="text/javascript" src="/js/Panel.built.min.js"></script>
+
+    </body>
+</html>

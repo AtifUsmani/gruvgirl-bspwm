@@ -1,0 +1,8 @@
+/** Basic config file **/
+
+configuration {
+  show-icons:         true;
+  icon-theme:         "Papirus";
+}
+/**@import "/home/atifu/Downloads/titus-awesome/theme/sidebar.rasi"**/
+@import "/home/atifu/gruvgirl.rasi"

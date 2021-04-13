@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Options Page :: Download with Free Download Manager</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <meta charset="utf-8">
+  <meta name="description" content="Free Download Manager accelerates all types of downloads (files, video, torrents). It's a smart and fast internet download manager for Windows and macOS.">
+</head>
+
+<body>
+  <div class="grid">
+    <span>Executable</span>
+    <input type="text" id="executable" style="width: 100%;">
+    <span></span>
+    <span class="note">Absolute path of the Free Download Manager</span>
+    <span>Arguments</span>
+    <input type="text" id="args" style="width: 100%;">
+    <span class="hidden">Remote Server</span>
+    <input class="hidden" type="text" id="remote" style="width: 100%;">
+    <span></span>
+    <span class="note">Arguments to be passed to the executable. List of supported arguments: <code>[URL]</code> (Link URL or image, video, and audio source), <code>[REFERRER]</code> (URL of the parent page), <code>[USERAGENT]</code> (User-agent string), <code>[FILENAME]</code> (Detected filename for the link. If no filename is detected, an empty string is passed), <code>[DISK]</code> (Absolute path of the detected file on the user disk. If no filename is detected, an empty string is passed).</span>
+    <span></span>
+    <pre class="note">
+fdm.exe [-fs] [-url=]url1 [-url=]url2 ...
+
+-fs - force silent mode.
+If url contains spaces it should be in quotes.
+
+Example:
+fdm.exe -fs "http://site.com/read me.txt"
+    </pre>
+    <label autostart for="autostart">Autostart</label>
+    <input type="checkbox" id="autostart">
+    <span></span>
+    <span class="note">If unchecked then the extension requests the external download manager to keep the jobs in the link grabber section instead of automatically start downloading them  (available only if supported)</span>
+    <label for="batch">Batch mode</label>
+    <input type="checkbox" id="batch">
+    <span></span>
+    <span class="note">When multiple links are about to send to the external download manager, the extension can either send all of the links together or one by one. If the external download manager supports accepting multiple links in a single command, then check this box otherwise, the extension will send each link individually after a delay. For command-line downloaders, providing bulk input links usually results in downloading files sequentially.</span>
+    <label for="delay">Delay (in milliseconds)</label>
+    <input type="number" id="delay" min=50>
+    <span></span>
+    <span class="note">Delay between requests when multiple jobs are about to send to the external download manager (when the "Batch mode" is disabled)</span>
+  </div>
+
+  <table style="margin-top: 10px;">
+    <colgroup>
+      <col width="24">
+      <col>
+    </colgroup>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" id="context.open-link"></td>
+        <td><label for="context.open-link">Display "Download Link" context menu item</label></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="context.open-video"></td>
+        <td><label for="context.open-video">Display "Download Media" context menu item</label></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="context.grab"></td>
+        <td><label for="context.grab">Display "Download all Links" context menu item</label></td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" id="context.extract"></td>
+        <td><label for="context.extract">Display "Extract Links from Selection" context menu item</label></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Exclude the following <a href="https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types">mime-types</a> when integration is enabled (When the browser action's button is active, downloading files with the following mime-types are not being interrupted by this extension)
+
+    <textarea style="width: 100%" rows="3" id="mimes"></textarea>
+  </p>
+  <p>
+    Comma-separated list of hostnames to interrupt the built-in download manager (Only if the extension's interruption mode is enabled from the browser action's button. If the list is not empty, only downloading requests from these hostnames will be automatically interrupted. For all other hostnames, to send a job to the external download manager, use the right-click context menu (on-demand mode). Note that the link's hostname must belong to the actual downloadable link, not the parent page)
+
+    <textarea style="width: 100%" rows="3" id="whitelist" placeholder="e.g.: google.com, bing.com"></textarea>
+  </p>
+
+  <p>
+    <button id="test">Test Page</button> - <button id="reset">Reset</button>
+    <button id="support">Support Development</button> - <button id="save">Save</button>
+    <span id="status"></span>
+  </p>
+
+  <script src="index.js"></script>
+</body>
+</html>

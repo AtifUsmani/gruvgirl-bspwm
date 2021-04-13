@@ -1,0 +1,5 @@
+2021/04/13-18:08:58.822 3ae Reusing MANIFEST /home/atifu/.config/google-chrome/Default/IndexedDB/https_firebase.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2021/04/13-18:09:34.104 3b0 Level-0 table #5: started
+2021/04/13-18:09:34.112 3b0 Level-0 table #5: 1226 bytes OK
+2021/04/13-18:09:34.115 3b0 Delete type=0 #3
+2021/04/13-18:09:34.115 3b0 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

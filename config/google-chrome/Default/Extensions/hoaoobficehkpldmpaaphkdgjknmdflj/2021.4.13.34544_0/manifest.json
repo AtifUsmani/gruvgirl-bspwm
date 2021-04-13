@@ -1,0 +1,59 @@
+{
+   "app": {
+      "display_mode": "standalone",
+      "icon_color": "#FECA30",
+      "launch": {
+         "web_url": "https://firebase.google.com/"
+      },
+      "linked_icons": [ {
+         "size": 72,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-72x72.png"
+      }, {
+         "size": 96,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-96x96.png"
+      }, {
+         "size": 128,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-128x128.png"
+      }, {
+         "size": 144,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-144x144.png"
+      }, {
+         "size": 152,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-152x152.png"
+      }, {
+         "size": 192,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-192x192.png"
+      }, {
+         "size": 384,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-384x384.png"
+      }, {
+         "size": 512,
+         "url": "https://firebase.google.com/_pwa/firebase/icons/icon-512x512.png"
+      } ],
+      "theme_color": "rgba(3,155,229,1)"
+   },
+   "description": "Firebase is Google’s mobile platform that helps you quickly develop high-quality apps and grow your business.",
+   "icons": {
+      "128": "icons/128.png",
+      "144": "icons/144.png",
+      "152": "icons/152.png",
+      "192": "icons/192.png",
+      "256": "icons/256.png",
+      "32": "icons/32.png",
+      "384": "icons/384.png",
+      "48": "icons/48.png",
+      "512": "icons/512.png",
+      "64": "icons/64.png",
+      "72": "icons/72.png",
+      "96": "icons/96.png"
+   },
+   "key": "NLYVzd8EgmmkV+jivVlNpkwbXezy5IAJtcYVLqSQWXU=",
+   "name": "Firebase",
+   "url_handlers": {
+      "scope": {
+         "matches": [ "https://firebase.google.com/*" ],
+         "title": "Firebase"
+      }
+   },
+   "version": "2021.4.13.34544"
+}

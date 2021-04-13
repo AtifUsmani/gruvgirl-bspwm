@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amazon Browser Apps</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <link type="text/css" rel="stylesheet" href="../styles/safariPanel.css">
+
+    <!-- source: https://developer.mozilla.org/en-US/Apps/Build/Localization/Getting_started_with_app_localization -->
+    <script src="../js/l10n.js"></script>
+
+    <link rel="localization" href="../../locales/{locale}.properties" />
+    <script src="../js/localStorage.js"></script>
+</head>
+<!--
+
+ Step1: Creates an iframe with default dimensions.
+ Step2: call loadCachedGateway.js script to load the gateway URL that was used the last time.
+ Step3: Now, try to retrieve the actual gateway URL from the extension and store it in local storage
+
+-->
+
+<body style="width: 320px; height: 600px; margin: 0px; padding: 0px; overflow: hidden">
+
+    <script>
+
+        /**
+         * Wrapper of the messages received from Panel.
+         */
+        function SafariPanelMessageWrapper(message) {
+            this.safariPanelWrappedMessage = message;
+        }
+
+        var urlKey = "UBPv2GatewayURL";
+
+        /**
+         * Extension logging ID that can be sent as part
+         * of the feedback email by the user. This will help
+         * debug any issues in the logs.
+         */
+        var extensionLogId = "";
+
+        /**
+         * No network page URL
+         */
+        var offlineGatewayURL = "./offlineGatewayPanel.html";
+
+        /*
+         * Leverage the navigator.onLine property to determine if the 
+         * browser is connected to a network. A false value indicates no
+         * internet connection whatsoever while true does not necessarily indicates
+         * that the browser can connect to the internet. The same is true for Chrome:
+         * https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine
+         *
+         * Do not set this value to true explicitly since that will prevent the
+         * offline card from ever being displayed.
+         * Do not set this value to false explicitly since message
+         * passing errors could also cause it to appear offline which is just
+         * as bad as it not showing up at all.
+         * Normally the online status is communicated by the extension, but
+         * not if the device is just offline altogether.
+         */
+        var isOnline = window && window.navigator && window.navigator.onLine;
+
+        var errorCodePrefix = "ext";
+        var gateway_iframe_load_error   = "101"; // gateway iframe load error
+        var gateway_iframe_blank_error  = "102"; // gateway iframe src is blank after retry timeout
+        var gateway_page_timeout_error  = "103"; // after page wait timeout
+        var gateway_local_storage_error = "104"; // local storage fail
+        var errorCode = "";
+
+        /**
+         * Receive message from the extension aimed towards the panel. At this point,
+         * we are only getting the messages which sends the extension logId and is sent
+         * when the panel is created.
+         * @param msgEvent
+         */
+        function receiveMessage(msgEvent) {
+            var message = msgEvent && msgEvent.data;
+            if (message && message.source !== "Panel" && message.specialMessage && message.payload && message.payload.data) {
+                if (typeof(message.payload.data.extensionId) !== "undefined") {
+                    extensionLogId  = message.payload.data.extensionId;
+                }
+                
+                if (typeof(message.payload.data.isOnline) !== "undefined") {
+                    isOnline = message.payload.data.isOnline;
+                }
+            }
+
+            /**
+             * Gateway or other UI processes sends "reloadExtension" message to restart AA. Here we send that message to extension
+             * which actually restarts all processes and closes panel.
+             */
+            if(message.payload && message.payload.payload && message.payload.payload.header && message.payload.payload.header.namespace === "Platform" && message.payload.payload.header.name === "reloadExtension") {
+                safari && safari.extension && safari.extension.popovers[0] && safari.extension.popovers[0].hide();
+                sendMessage({name: "reloadExtension" });
+            }
+
+            /**
+             * Get the gateway url and store it in local storage
+             * which can be used by subsequent gateway open to get the gateway url
+             */
+            if(message && message.panelResponseData && message.panelResponseData.messageData && message.panelResponseData.messageData.gatewayURL) {
+                setToLocalStorage(urlKey, message.panelResponseData.messageData.gatewayURL);
+            }
+        }
+
+        /* This listener should be attached asap so as not to miss any messaged aimed for the panel */
+        safari.extension.popovers[0].contentWindow.addEventListener("message", receiveMessage);
+    </script>
+
+    <div id="spinnerSection">
+        <img src="../images/loader.gif"/>
+    </div>
+
+    <!--
+        Retry sections.
+        Initial retry section is shown for the first time. If the customer has already seen
+        this section, subsequent retry section is shown.
+    -->
+    <div id="retryContainer">
+        <div id="retrySection">
+            <img src="../images/icon.png"/>
+
+            <div id="initialRetry">
+                <p data-l10n-id="sorryString1"></p>
+                <p data-l10n-id="sorryString2"></p>
+                <div id="retryButton" class="reloadExt" data-l10n-id="resetString"></div>
+            </div>
+
+            <div id="subsequentRetry">
+                <p id="noLuckText" data-l10n-id="noLuckString"></p>
+                <div id="retryAgainButton" class="reloadExt" data-l10n-id="resetAgainString"></div>
+                <p id="improveText" data-l10n-id="improveString"></p>
+                <button id="feedbackButton" data-l10n-id="feedbackString"></button>
+            </div>
+        </div>
+
+        <!-- Show error code and log id here -->
+        <div id="footer">
+            <span id="errorCode"></span>
+            <span id="logId"></span>
+        </div>
+    </div>
+
+    <div id="emailData">
+        <p id="emailSubject" data-l10n-id="emailSubject"></p>
+        <p id="emailBody1" data-l10n-id="emailBody1"></p>
+        <p id="emailBody2" data-l10n-id="emailBody2"></p>
+        <p id="emailBody3" data-l10n-id="emailBody3"></p>
+        <p id="emailBody4" data-l10n-id="emailBody4"></p>
+    </div>
+    <iframe id="UBPv2MainPanelFrame" src="about:blank" style="width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; overflow: hidden;">
+    </iframe>
+
+    <script>
+        /* Todo: Move this script to a file */
+        var blankUrl = "about:blank";
+        var gatewayIframeId = "UBPv2MainPanelFrame";
+        var spinnerDivId = "spinnerSection";
+        var retryScreenShownStorageKey = "ubpv2.retry.screen.shown";
+        var retryScreenTimeout = 10000;         // 10 seconds
+        var retryScreen; // retry timer
+        /**
+         * Maximum timeout to wait for a page to be shown in the panel (either gateway or retry) before
+         * retry screen can be shown. This will take charge if gateway stuck loading hence cannot show
+         * panic screen.
+         */
+        var pageWaitTimeout = 15000;
+        var pageWait; // the timer
+        var gatewayFrame = document.getElementById(gatewayIframeId);
+
+        var spinnerDiv = document.getElementById(spinnerDivId);
+
+        /**
+         * Add onload event handler which hides the spinner which is shown by default
+         * Also clear the timeout.
+         */
+        gatewayFrame.onload = function() {
+
+            // Only remove spinner and timeout when iframe src is set to a valie URL
+            if(gatewayFrame.src !== blankUrl) {
+                spinnerDiv && (spinnerDiv.style.display = 'none');
+                window.clearTimeout(retryScreen);
+                window.clearTimeout(pageWait);
+                setToLocalStorage(retryScreenShownStorageKey, null);
+
+                // Ensure the retry section is not displayed
+                document.getElementById("retryContainer").style.display = "none";
+            }
+        };
+
+        // Same with Chrome, set onerror to loadRetryScreen
+        gatewayFrame.onerror = loadRetryScreen;
+
+        /**
+         * Load the panic screen
+         * @param code - The error code passed in
+         */
+        function loadRetryScreen(code) {
+            // if no errorCode passed in, or passed in code is not 102 and 103, we mark it to 101
+            if (!code || (code !== gateway_iframe_blank_error && code !== gateway_page_timeout_error)) {
+                code = gateway_iframe_load_error;
+            }
+
+            var retryScreenShown = getFromLocalStorage(retryScreenShownStorageKey);
+
+            if (retryScreenShown !== "true") {
+                document.getElementById("initialRetry").style.display = "block";
+            } else {
+                document.getElementById("subsequentRetry").style.display = "block";
+            }
+            // set the extension log id
+            if (document.getElementById("logId")) {
+                document.getElementById("logId").innerHTML = extensionLogId;
+            }
+
+            // Ensure we hide the spinner
+            spinnerDiv && (spinnerDiv.style.display = 'none');
+
+            // Show the retry section
+            document.getElementById("retryContainer").style.display = "block";
+
+            // set the local storage to know next time we have already shown retry screen once.
+            retryScreenShown = "true";
+            if (!setToLocalStorage(retryScreenShownStorageKey, retryScreenShown)) {
+                code = gateway_local_storage_error;
+            }
+            // set error code
+            if (document.getElementById("errorCode")) {
+                document.getElementById("errorCode").innerHTML = "Error code: " + errorCodePrefix + code;
+            }
+        }
+
+        var retryScreen = window.setTimeout(function() {
+
+            /**
+             * If Extension is online, show panic page after retry timeout otherwise show no network page
+             */
+            if(isOnline) {
+                /**
+                 * Do not open panic page when extension is online and gateway iframe has already started loading gateway url.
+                 */
+                if(gatewayFrame.src == blankUrl) {
+                    loadRetryScreen(gateway_iframe_blank_error);
+                }
+            } else {
+                //if Extension is offline, show no internet connection page
+                if(gatewayFrame) {
+                    gatewayFrame.src = offlineGatewayURL;
+                }
+            }
+
+        }, retryScreenTimeout);
+
+        /**
+         * Handle the gateway timeout.
+         */
+        pageWait = window.setTimeout(function() {
+            if (gatewayFrame && gatewayFrame.src !== blankUrl && gatewayFrame.src !== offlineGatewayURL) {
+                /**
+                 * Gateway URL has already been set to iframe src. But for some reasons (mostly network), gateway
+                 * is stuck in loading and might be timeout, so the gateway side panic screen related JS might not
+                 * be loaded either. In this case we need to take charge and show the panic screen. Otherwise,
+                 * customer will see an infinite loading spin.
+                 *
+                 * @TODO
+                 * But this cannot resolve all infinite loading issues. For example, gateway URL
+                 * https://horizonte.browserapps.amazon.com has been set to iframe's src and it's loaded successfully,
+                 * but the subsequent UBPClient.min.js or the manifest.js failed to be loaded (I saw timeout with
+                 * slow network), which cause the gateway side ReloadHelper doesn't startup. But since we have cleared
+                 * the pageWaitTimeout on iframe load, no panic screen will be shown from either extension or the
+                 * gateway side, so customer will see an infinite spin.  We should fix this issue either from gateway
+                 * side by removing UBPClient dependency, or by sending a message to extension to clear the timeout.
+                 */
+                loadRetryScreen(gateway_page_timeout_error);
+            }
+        }, pageWaitTimeout);
+
+        /* Send message back to extension */
+        function sendMessage(message) {
+            var msg = new SafariPanelMessageWrapper({source: "Panel", payload:{ namespace: "Platform", name: message.name, data: message.data } , specialMessage: true })
+            safari.extension.globalPage.contentWindow.postMessage(msg, "*");
+        }
+        
+        /*
+         * Trigger the resetExtension event.
+         *
+         * This event should only be triggered from this method in this file.
+         * It is a special hook designed to allow the Safari extension to be
+         * reset by the user even if message passing hasn't had the chance
+         * to set up since we cannot truly reload the extension.
+         *
+         * The reason that Safari is handled differently than other browsers is
+         * because we cannot reload the extension (safariGlobal.html) in Safari.
+         * Other browsers are able to reload the extension (see retryHandler.js) 
+         * allowing a much simpler form of restarting.
+         *
+         * Message passing doesn't set up until the Gateway Core module
+         * registers it.
+         */
+        function resetExtension() {
+            if (safari && safari.extension && safari.extension.globalPage && safari.extension.globalPage.contentWindow) {
+                safari.extension.globalPage.contentWindow.dispatchEvent(new Event('resetExtension'));
+            }
+        }
+
+        // Set on click events for reload links
+        document.getElementById("initialRetry").addEventListener("click", resetExtension);
+        document.getElementById("subsequentRetry").addEventListener("click", resetExtension);
+
+        // Feedback Email
+        var newLineEscapeSeq = "%0D%0A";
+        var emailId = "assistantfeedback@amazon.com";
+        var emailSubject = document.getElementById("emailSubject").textContent;
+        var emailBody1 = document.getElementById("emailBody1").textContent;
+        var emailBody2 = document.getElementById("emailBody2").textContent;
+        var emailBody3 = document.getElementById("emailBody3").textContent;
+        var emailBody4 = document.getElementById("emailBody4").textContent;
+
+        /**
+         * Feedback button should open a mailto link using default
+         * mailing client on user's machine.
+         */
+        document.getElementById("feedbackButton").addEventListener("click", function () {
+            /**
+             * Create email subject and body with the mailto link.
+             */
+            var emailSubject = document.getElementById("emailSubject").textContent;
+            var emailBody1 = document.getElementById("emailBody1").textContent;
+            var emailBody2 = document.getElementById("emailBody2").textContent;
+            var emailBody3 = document.getElementById("emailBody3").textContent;
+            var emailBody4 = document.getElementById("emailBody4").textContent;
+
+            var emailBody = emailBody1 + newLineEscapeSeq+ emailBody2 +
+                    newLineEscapeSeq + newLineEscapeSeq + emailBody3 +
+                    newLineEscapeSeq + newLineEscapeSeq +
+                    emailBody4 + extensionLogId;
+            var mailUrl = "mailto:" + emailId + "?subject=" + emailSubject + "&body=" + emailBody;
+            var newTab = safari.application.activeBrowserWindow.openTab();
+            newTab.url = mailUrl;
+        });
+
+    </script>
+
+    <!-- Get the updated URL, this is required if the locale has changed, otherwise
+         this request will make sure that it takes the latest URL.
+     -->
+    <script type="text/javascript" src="../../js/Panel.built.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "external/termlib_parser.js", "common.js" ]
+   },
+   "browser_action": {
+
+   },
+   "description": "exports your downloading jobs to the Free Download Manager by pausing the built-in download manager",
+   "homepage_url": "https://add0n.com/download-with.html?from=fdm",
+   "icons": {
+      "128": "data/icons/128.png",
+      "16": "data/icons/16.png",
+      "19": "data/icons/19.png",
+      "256": "data/icons/256.png",
+      "32": "data/icons/32.png",
+      "38": "data/icons/38.png",
+      "48": "data/icons/48.png",
+      "512": "data/icons/512.png",
+      "64": "data/icons/64.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjck80c55tXt9wuzcsgqQynRpNK0G+6Y7NAmgKcB6Zo9ae2wBqJLGwLOHpGs0eSKcXAhQJPr/YXfYpadUijO39IhBxSJcN0EQ1V60YBQyaXnCmQjsuSCigkcJZSoY0E6st+K5LIzRPl0jsHrl8b/9iSuCLbIptpuD5cK1iMZd764zH8Gsd9afKtQ5AypwAuaKe17xt8LjqPsDFeh2er9RHtNCCyFCCNexgmrupxl7rWpA+q48pFUApqSYwc1Get2U12ZdWQG3N88weLhP16F9hAg11jfq+8J082Mdw9oJtD3DSHGwxpFzAkoYNwciUsSNH9woZ/yJ6QhpWtM0tdTwVQIDAQAB",
+   "manifest_version": 2,
+   "name": "Download with Free Download Manager (FDM)",
+   "optional_permissions": [ "*://*/*" ],
+   "options_ui": {
+      "chrome_style": true,
+      "open_in_tab": true,
+      "page": "data/options/index.html"
+   },
+   "permissions": [ "storage", "nativeMessaging", "notifications", "downloads", "contextMenus" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.2.1",
+   "web_accessible_resources": [ "data/grab/index.html" ]
+}
